@@ -1,0 +1,24 @@
+silines = open("person-names.en").readlines()
+
+talines = open("person-names.si").readlines()
+
+dict = {}
+
+for i in range(len(silines)):
+    temp = silines[i].strip().replace("\n", "")
+    if (dict.get(temp, False)):
+        arr = dict[temp]
+        if (talines[i].strip().replace("\n", "") not in arr):
+            arr.append(talines[i].strip().replace("\n", ""))
+            dict[temp] = arr
+    else:
+        dict[temp] = [talines[i].strip().replace("\n", "")]
+
+
+with open("./a.en", "w") as enwritefile:
+    with open("./b.si", "w") as siwritefile:
+        for key, values in dict.items():
+            for value in values:
+                enwritefile.write(key + "\n")
+                siwritefile.write(value + "\n")
+            print(key, values)
